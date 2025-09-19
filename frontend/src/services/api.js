@@ -55,17 +55,30 @@ api.interceptors.response.use(
   }
 );
 
-export async function registerUser(data) {
-  const response = await fetch(`${process.env.REACT_APP_API_URL}/api/register`, {
+export const registerUser = async (data) => {
+  const response = await fetch('http://localhost:5000/api/register', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
-    credentials: 'include', // if you use cookies/session
   });
   if (!response.ok) {
-    throw new Error(await response.text());
+    const errorData = await response.json();
+    throw new Error(errorData.message || 'Registration failed');
   }
   return response.json();
-}
+};
+
+export const loginUser = async (data) => {
+  const response = await fetch('http://localhost:5000/api/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || 'Login failed');
+  }
+  return response.json();
+};
 
 export default api;

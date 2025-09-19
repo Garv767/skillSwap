@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Typography } from '@mui/material';
-import { registerUser } from '../../services/api';
+import { registerUser } from '../../services/api.js';
 
 const Register = () => {
   const [form, setForm] = useState({ username: '', email: '', password: '' });
